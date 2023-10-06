@@ -9,7 +9,7 @@ camlight
 axis on
 grid on
 view(135, 30) % Rotate plane (z direction) by 135deg & look down at 30deg
-axis([-4 4 -4 2 0 3]);
+axis([-4 4 -4 4 0 3]);
 xticks(-5:0.5:5);
 xlabel('x');
 yticks(-5:0.5:5);
@@ -21,6 +21,10 @@ hold on
 
 %% Main
 kitchen();
+% r = LinearTM12();
+% q = [0, 0, 0, 0, 0, 0, 0]
+% r.model.teach(q);
+
 
 %% Environment Function
 function kitchen()
@@ -48,7 +52,7 @@ function kitchen()
 
     % Insert Kitchen Island
     file = "Kitchen Island.ply";
-    transform = transl(0, 0.1, 0.3) * trotx(0) * troty(0) * trotz(deg2rad(180));
+    transform = transl(0.5, 0.1, 0.3) * trotx(0) * troty(0) * trotz(deg2rad(0));
     insertObj(file, transform);
     
     % Insert Kitchen Benches
@@ -91,7 +95,12 @@ function kitchen()
 
     % Insert Coffee Machine
     file = "Coffee.ply";
-    transform = transl(-0.15, 0, 1.1) * trotx(0) * troty(0) * trotz(deg2rad(0));
+    transform = transl(-0.5, -0.25, 1.1) * trotx(0) * troty(0) * trotz(deg2rad(0));
+    insertObj(file, transform);
+
+    % Insert Dining Table
+    file = "Dining Table.ply";
+    transform = transl(0, 2.5, 0.5) * trotx(0) * troty(0) * trotz(deg2rad(0));
     insertObj(file, transform);
 end
 
