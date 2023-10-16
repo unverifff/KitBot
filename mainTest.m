@@ -20,7 +20,7 @@ noPan = 8;
 panPose = kitchenPoses.getPanPose(noPan);
 panWashedPose = kitchenPoses.getWashedPanPose(noPan);
 
-%Insert dinnerware at Table
+% Insert dinnerware at Table  % To run this, Uncomment and Comment Lines 32-37.
 insertModel('Plate', noDinnerSet, platePose);
 insertModel('Bowl', noDinnerSet, bowlPose);
 insertModel('Whisky', noDinnerSet, whiskyPose);
@@ -28,13 +28,13 @@ insertModel('Knife', noDinnerSet, knifePose);
 insertModel('Fork', noDinnerSet, forkPose);
 insertModel('Spoon', noDinnerSet, spoonPose);
 
-%Insert dinnerware in Plastic Container
-insertModel('Plate', noDinnerSet, plateWashed);
-insertModel('Bowl', noDinnerSet, bowlWashed);
-insertModel('Whisky', noDinnerSet, whiskyWashed);
-insertModel('Knife', noDinnerSet, knifeWashed);
-insertModel('Fork', noDinnerSet, forkWashed);
-insertModel('Spoon', noDinnerSet, spoonWashed);
+% Insert dinnerware in Plastic Container % To run this, Uncomment and Comment Lines 24-29.
+% insertModel('Plate', noDinnerSet, plateWashed);
+% insertModel('Bowl', noDinnerSet, bowlWashed);
+% insertModel('Whisky', noDinnerSet, whiskyWashed);
+% insertModel('Knife', noDinnerSet, knifeWashed);
+% insertModel('Fork', noDinnerSet, forkWashed);
+% insertModel('Spoon', noDinnerSet, spoonWashed);
 
 % Insert pans in Dishwashing Machine
 for i = 1:noPan
@@ -64,7 +64,7 @@ for i = 1:noPan
             name = 'Saucepan';
     end
 
-    insertModelAtPose(name, i, panPose);
-    insertModelAtPose(name, i, panWashedPose);
+    insertModelAtPose(name, i, panPose); % To run this, Uncomment and Comment Line 68.
+    % insertModelAtPose(name, i, panWashedPose); % To run this, Uncomment and Comment Line 67.
 end
 
