@@ -212,68 +212,68 @@ classdef kitchenPoses
             for i = 1:numberOfPose
                 switch i
                     case 1
-                        x = 0;
-                        y = 0;
-                        z = 0;
+                        x = 1.15;
+                        y = -1.6;
+                        z = 1.03;
                         rx = deg2rad(0);
                         ry = deg2rad(0);
                         rz = deg2rad(0);
         
                     case 2
-                        x = 0;
-                        y = 0;
-                        z = 0;
+                        x = 0.75;
+                        y = -1.65;
+                        z = 0.985;
                         rx = deg2rad(0);
                         ry = deg2rad(0);
                         rz = deg2rad(0);
         
                     case 3
-                        x = 0;
-                        y = 0;
-                        z = 0;
+                        x = 0.6;
+                        y = -0.4;
+                        z = 0.65;
                         rx = deg2rad(0);
                         ry = deg2rad(0);
-                        rz = deg2rad(0);
+                        rz = deg2rad(180);
         
                     case 4
-                        x = 0;
-                        y = 0;
-                        z = 0;
-                        rx = deg2rad(0);
+                        x = 1.75;
+                        y = -2.23;
+                        z = 1.3;
+                        rx = deg2rad(90);
                         ry = deg2rad(0);
                         rz = deg2rad(0);
         
                     case 5
-                        x = 0;
-                        y = 0;
-                        z = 0;
-                        rx = deg2rad(0);
+                        x = 0.6;
+                        y = -2.205;
+                        z = 1.3;
+                        rx = deg2rad(90);
                         ry = deg2rad(0);
                         rz = deg2rad(0);
         
                     case 6
-                        x = 0;
-                        y = 0;
-                        z = 0;
-                        rx = deg2rad(0);
+                        x = -0.6;
+                        y = -2.205;
+                        z = 1.3;
+                        rx = deg2rad(90);
                         ry = deg2rad(0);
                         rz = deg2rad(0);
         
                     case 7
-                        x = 0;
-                        y = 0;
-                        z = 0;
+                        x = 0.25;
+                        y = -0.35;
+                        z = 1;
                         rx = deg2rad(0);
                         ry = deg2rad(0);
-                        rz = deg2rad(0);
+                        rz = deg2rad(90);
         
                     case 8
-                        x = 0;
-                        y = 0;
-                        z = 0;
+                        x = -1.6;
+                        y = -1.25;
+                        z = 1.2;
                         rx = deg2rad(0);
                         ry = deg2rad(0);
-                        rz = deg2rad(0);
+                        rz = deg2rad(-90);
                 end
 
                 panPose{i} = transl(x, y, z) * trotx(rx) * troty(ry) * trotz(rz);

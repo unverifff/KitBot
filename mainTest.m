@@ -8,7 +8,7 @@ hold on;
 
 % Declare how many pans & dinnerware to add
 noDinnerSet = 6;
-noPan = 6;
+noPan = 8;
 
 % Get Poses
 [platePose, bowlPose, whiskyPose, knifePose, ...
@@ -17,15 +17,16 @@ noPan = 6;
 [plateWashed, bowlWashed, whiskyWashed, knifeWashed, ...
     forkWashed, spoonWashed] = kitchenPoses.getWashedPose(noDinnerSet);
 
-panPose = kitchenPoses.getWashedPanPose(noPan);
+panPose = kitchenPoses.getPanPose(noPan);
+panWashedPose = kitchenPoses.getWashedPanPose(noPan);
 
 % Insert dinnerware at Table
-insertModel('Plate', noDinnerSet, platePose);
-insertModel('Bowl', noDinnerSet, bowlPose);
-insertModel('Whisky', noDinnerSet, whiskyPose);
-insertModel('Knife', noDinnerSet, knifePose);
-insertModel('Fork', noDinnerSet, forkPose);
-insertModel('Spoon', noDinnerSet, spoonPose);
+% insertModel('Plate', noDinnerSet, platePose);
+% insertModel('Bowl', noDinnerSet, bowlPose);
+% insertModel('Whisky', noDinnerSet, whiskyPose);
+% insertModel('Knife', noDinnerSet, knifePose);
+% insertModel('Fork', noDinnerSet, forkPose);
+% insertModel('Spoon', noDinnerSet, spoonPose);
 
 % Insert dinnerware in Plastic Container
 % insertModel('Plate', noDinnerSet, plateWashed);
@@ -48,13 +49,19 @@ for i = 1:noPan
             name = 'Pot';
 
         case 4
-            name = 'Cast Iron Skillet';
+            name = 'Cast Iron Saucepan';
 
         case 5
-            name = 'Cast Iron Saucepan';
+            name = 'Cast Iron Skillet';            
 
         case 6
             name = 'Cast Iron Pan';
+
+        case 7
+            name = 'Pot';
+
+        case 8
+            name = 'Saucepan';
     end
 
     insertModelAtPose(name, i, panPose);

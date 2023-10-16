@@ -43,7 +43,7 @@ classdef insertModelAtPose < handle
                                        ,0,self.maxHeight];
 
             % Create the required number of models
-            [self.robotModel, colour] = self.GetModel(self.modelName);
+            [self.robotModel, colour] = self.GetModel(self.modelName, poseIndex);
             
             self.robotModel.base = self.robotModel.base.T * basePose{poseIndex} * trotx(-pi/2);
 
@@ -69,10 +69,10 @@ classdef insertModelAtPose < handle
     
     methods (Static)
         %% GetModel
-        function [model, vertexColours] = GetModel(name)
+        function [model, vertexColours] = GetModel(name, index)
             [f,v, data] = plyread(strcat(name, '.ply'),'tri');
             link1 = Link('alpha',pi/2,'a',0,'d',0,'offset',0);
-            model = SerialLink(link1,'name', name);
+            model = SerialLink(link1,'name', [name, num2str(index)]);
             
             % Changing order of cell array from {faceData, []} to 
             % {[], faceData} so that data is attributed to Link 1
