@@ -20,21 +20,21 @@ noPan = 8;
 panPose = kitchenPoses.getPanPose(noPan);
 panWashedPose = kitchenPoses.getWashedPanPose(noPan);
 
-% Insert dinnerware at Table
-% insertModel('Plate', noDinnerSet, platePose);
-% insertModel('Bowl', noDinnerSet, bowlPose);
-% insertModel('Whisky', noDinnerSet, whiskyPose);
-% insertModel('Knife', noDinnerSet, knifePose);
-% insertModel('Fork', noDinnerSet, forkPose);
-% insertModel('Spoon', noDinnerSet, spoonPose);
+%Insert dinnerware at Table
+insertModel('Plate', noDinnerSet, platePose);
+insertModel('Bowl', noDinnerSet, bowlPose);
+insertModel('Whisky', noDinnerSet, whiskyPose);
+insertModel('Knife', noDinnerSet, knifePose);
+insertModel('Fork', noDinnerSet, forkPose);
+insertModel('Spoon', noDinnerSet, spoonPose);
 
-% Insert dinnerware in Plastic Container
-% insertModel('Plate', noDinnerSet, plateWashed);
-% insertModel('Bowl', noDinnerSet, bowlWashed);
-% insertModel('Whisky', noDinnerSet, whiskyWashed);
-% insertModel('Knife', noDinnerSet, knifeWashed);
-% insertModel('Fork', noDinnerSet, forkWashed);
-% insertModel('Spoon', noDinnerSet, spoonWashed);
+%Insert dinnerware in Plastic Container
+insertModel('Plate', noDinnerSet, plateWashed);
+insertModel('Bowl', noDinnerSet, bowlWashed);
+insertModel('Whisky', noDinnerSet, whiskyWashed);
+insertModel('Knife', noDinnerSet, knifeWashed);
+insertModel('Fork', noDinnerSet, forkWashed);
+insertModel('Spoon', noDinnerSet, spoonWashed);
 
 % Insert pans in Dishwashing Machine
 for i = 1:noPan
@@ -65,5 +65,6 @@ for i = 1:noPan
     end
 
     insertModelAtPose(name, i, panPose);
+    insertModelAtPose(name, i, panWashedPose);
 end
 
