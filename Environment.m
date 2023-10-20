@@ -1,3 +1,6 @@
+%% Loads in the Kitchen Environment.
+% Call in main script with Environment();
+
 classdef Environment 
     methods
         function self = Environment()
@@ -27,7 +30,7 @@ classdef Environment
         
             % Insert Kitchen Island
             file = "Kitchen Island.ply";
-            transform = transl(0.5, 0.1, 0.3) * trotx(0) * troty(0) * trotz(deg2rad(0));
+            transform = transl(0.5, 0.08, 0.3) * trotx(0) * troty(0) * trotz(deg2rad(0));
             self.insertObj(file, transform);
         
             % Insert Kitchen Benches
@@ -57,7 +60,7 @@ classdef Environment
         
             % Insert Shelf
             file = "Shelf.ply";
-            transform = transl(2.25, -1.5, 1.2) * trotx(0) * troty(0) * trotz(deg2rad(0));
+            transform = transl(2.45, -1.5, 1.2) * trotx(0) * troty(0) * trotz(deg2rad(90));
             self.insertObj(file, transform);
            
             file = "Shelf.ply";
@@ -78,6 +81,11 @@ classdef Environment
             file = "Dining Table.ply";
             transform = transl(0, 2.5, 0.5) * trotx(0) * troty(0) * trotz(deg2rad(0));
             self.insertObj(file, transform);
+
+            % Insert Washing Basket
+            PlaceObject('Basket.PLY', [-1.15, 2.5, 0.67]);
+            % pose{1} = transl(-1, 2.5, 0.68) * trotx(0) * troty(0) * trotz(180);
+            % insertModel('Basket', 1, pose);
         end
 
         function insertObj(self, name, transform)
