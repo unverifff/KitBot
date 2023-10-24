@@ -1,4 +1,11 @@
 %% Based on Lab 9 Solutions
+% Call in main script with:
+% RMRC(robotName, initPose, finalPose, itemName;
+%     robotName -> name of Robot
+%     initPose -> in this instance Joint Poses (q)
+%     finalPose -> in this instance Joint Poses (q)
+%     itemName -> to animate item with robot (does not work correctly)
+%              -> '0' for no item
 
 function RMRC(robotName, initPose, finalPose, itemName)
     % Parameters
@@ -76,15 +83,15 @@ function RMRC(robotName, initPose, finalPose, itemName)
     % Animate Movement
     for k = 1:length(qMatrix)
         robotName.model.animate(qMatrix(k,:));
-        endEffectorLocation = robotName.model.fkine(robotName.model.getpos());
+        % endEffectorLocation = robotName.model.fkine(robotName.model.getpos());
 
-        if itemName ~= 0
-        % To move Item with End Effector
-            itemName.robotModel{1}.base = endEffectorLocation.T;
-            itemName.robotModel{1}.animate(0);
-        else
-            drawnow();
-        end
+        % if itemName ~= 0
+        % % To move Item with End Effector
+        %     itemName.robotModel{1}.base = endEffectorLocation.T;
+        %     itemName.robotModel{1}.animate(0);
+        % else
+            % drawnow();
+        % end
 
         drawnow();
     end
