@@ -1,7 +1,5 @@
 %% Industrial Robotics Lab 1 Assignment
 % Modified LinearUR5 to LinearUR3
-% Gavin Liang (13205430)
-
 classdef LinearUR3 < RobotBaseClass
     %% LinearUR3 UR3 on a non-standard linear rail modified from the LinearUR5 file 
 
@@ -18,10 +16,9 @@ classdef LinearUR3 < RobotBaseClass
             end
             self.model.base = self.model.base.T * baseTr * trotx(pi/2) * troty(pi/2);
           
-            % Add Robotiq 2F 140 Gripper End-Effector
-            % Robotiq 2F 140 https://robotiq.com/support
-            % self.useTool = true;
-            % self.toolFilename = ['Gripper.ply'];
+            % Add Robotiq EPick Gripper End-Effector
+            self.useTool = true;
+            self.toolFilename = 'EPickEndEff.PLY';
             
             self.PlotAndColourRobot();
         end
@@ -41,7 +38,7 @@ classdef LinearUR3 < RobotBaseClass
 
             % Incorporate joint limits
             % link(1).qlim = [0.01 0.8];
-            link(1).qlim = [-1.5 0];
+            link(1).qlim = [-1.4 0];
             link(2).qlim = [-360 360]*pi/180;
             link(3).qlim = [-90 90]*pi/180;
             link(4).qlim = [-170 170]*pi/180;
