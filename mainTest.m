@@ -69,7 +69,7 @@ spoon = insertModel('Spoon', noDinnerSet, spoonWashed);
 % end
 
 %% LinearUR3
-baseTr = transl([-0.65 2.5 0.63]) * trotz(deg2rad(180)); % Linear UR3 built into Table
+baseTr = transl([-0.7 2.5 0.63]) * trotz(deg2rad(180)); % Linear UR3 built into Table
 ur3 = LinearUR3(baseTr);
 q0 = [0, 0, 0, 0, 0, 0, 0];
 
@@ -85,7 +85,7 @@ qJointGuess{6} = [0, deg2rad(165), deg2rad(50), deg2rad(20), deg2rad(-20), -pi/2
 
 qWashedGuess = cell(1, noDinnerSet);
 for k = 1:numel(qWashedGuess)
-    qWashedGuess{k} = [0, pi/2, -deg2rad(45), 0, 0, pi/2, 0];
+    qWashedGuess{k} = [0, pi/2, -deg2rad(45), -deg2rad(5), 0, pi/2, 0];
 end
 
 % Waypoints for Which Side of Table
@@ -148,54 +148,45 @@ for k = 1:6
 
         % Move to just above Wash Basket
         qCurrent = ur3.model.getpos();
-        % RMRC(ur3, qCurrent, qWashedGuess{i}, 0);
         moveRobot.trapTraj(ur3, time, qCurrent, qWashedGuess{i});
 
         % Move to Washed Item
         qCurrent = ur3.model.getpos();
-        % RMRC(ur3, qCurrent, itemWashed{i}, 0);
         moveRobot.trapTraj(ur3, time, qCurrent, itemWashed{i});
 
-        % Grab Washed Item (assuming finger grip)
+        % Grab Washed Item (assuming finger grip do something)
 
         % Move to just above Wash Basket
         qCurrent = ur3.model.getpos();
-        % RMRC(ur3, qCurrent, qWashedGuess{i}, 0);
         moveRobot.trapTraj(ur3, time, qCurrent, qWashedGuess{i}, itemName, i);
 
         if  (i <= noDinnerSet && i >= 4) %{itemJoint{i}(1, 2) < 0 %}
             % Reorientate Joints for Dining ware on right
             qCurrent = ur3.model.getpos();
-            % RMRC(ur3, qCurrent, qLeft, 0);
             moveRobot.trapTraj(ur3, time, qCurrent, qRight, itemName, i);
 
         elseif (i <= 3 && i >= 1) %{if itemJoint{i}(1, 2) > 0 %}   
             % Reorientate Joints for Dining ware on right
             qCurrent = ur3.model.getpos();
-            % RMRC(ur3, qCurrent, qRight, 0);
             moveRobot.trapTraj(ur3, time, qCurrent, qLeft, itemName, i);
         end
 
         % Move to Just Above Item
         qCurrent = ur3.model.getpos();
-        % RMRC(ur3, qCurrent, qJointGuess{i}, 0);
         moveRobot.trapTraj(ur3, time, qCurrent, qJointGuess{i}, itemName, i);
 
         % Move to Item
         qCurrent = ur3.model.getpos();
-        % RMRC(ur3, qCurrent, itemJoint{i}, 0);
         moveRobot.trapTraj(ur3, time, qCurrent, itemJoint{i}, itemName, i);
 
-        % Let go of Item
+        % Let go of Item (assuming finger grip do something)
 
         % Move to Just Above Item
         qCurrent = ur3.model.getpos();
-        % RMRC(ur3, qCurrent, qJointGuess{i}, 0);
         moveRobot.trapTraj(ur3, time, qCurrent, qJointGuess{i});
 
         % Return to Default Pose
         qCurrent = ur3.model.getpos();
-        % RMRC(ur3, qCurrent, q0, 0);
         moveRobot.trapTraj(ur3, time, qCurrent, q0);
     end
 end
