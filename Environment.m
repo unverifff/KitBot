@@ -30,7 +30,7 @@ classdef Environment
         
             % Insert Kitchen Island
             file = "Kitchen Island.ply";
-            transform = transl(0.5, 0.08, 0.3) * trotx(0) * troty(0) * trotz(deg2rad(0));
+            transform = transl(0.30, 0.08, 0.3) * trotx(0) * troty(0) * trotz(deg2rad(0));
             self.insertObj(file, transform);
         
             % Insert Kitchen Benches
@@ -64,17 +64,17 @@ classdef Environment
             self.insertObj(file, transform);
            
             file = "Shelf.ply";
-            transform = transl(-2, -1.25, 1.4) * trotx(0) * troty(0) * trotz(deg2rad(90));
+            transform = transl(-2, -1.35, 1.4) * trotx(0) * troty(0) * trotz(deg2rad(90));
             self.insertObj(file, transform);
         
             % Insert Oven
             file = "Oven.ply";
-            transform = transl(-1.75, -1.25, 0.9) * trotx(0) * troty(0) * trotz(deg2rad(90));
+            transform = transl(-1.75, -1.35, 0.9) * trotx(0) * troty(0) * trotz(deg2rad(90));
             self.insertObj(file, transform);
         
             % Insert Coffee Machine
             file = "Coffee.ply";
-            transform = transl(-0.5, -0.25, 1.1) * trotx(0) * troty(0) * trotz(deg2rad(0));
+            transform = transl(-0.5, -0.2, 1.13) * trotx(0) * troty(0) * trotz(deg2rad(0));
             self.insertObj(file, transform);
         
             % Insert Dining Table
@@ -96,7 +96,7 @@ classdef Environment
             PlaceObject('Sprinkler.PLY', [1, -0.5, 2.4]);
 
             % Insert MedKit
-            PlaceObject('MedKit.PLY', [2.5, -1.5, 1.19]);
+            PlaceObject('MedKit.PLY', [2.5, -1.5, 1.2]);
 
         end
 
