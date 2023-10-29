@@ -76,12 +76,12 @@ q0 = [0, 0, 0, 0, 0, 0, 0];
 %% Dining ware Waypoints & Joint Angles
 % Joint Angle Guesses for IKCON & Waypoints for items
 qJointGuess = cell(1, noDinnerSet);
-qJointGuess{1} = [-0.5, 0, deg2rad(50), deg2rad(20), deg2rad(-20), -pi/2, 0];
-qJointGuess{2} = [-1.3, 0, deg2rad(50), deg2rad(20), deg2rad(-20), -pi/2, 0];
-qJointGuess{3} = [0, deg2rad(-25), deg2rad(50), deg2rad(20), deg2rad(-20), -pi/2, 0];
-qJointGuess{4} = [-0.75, deg2rad(165), deg2rad(50), deg2rad(20), deg2rad(-20), -pi/2, 0];
-qJointGuess{5} = [-1.3, deg2rad(165), deg2rad(50), deg2rad(20), deg2rad(-20), -pi/2, 0];
-qJointGuess{6} = [0, deg2rad(165), deg2rad(50), deg2rad(20), deg2rad(-20), -pi/2, 0];
+qJointGuess{1} = [-0.5, 0, deg2rad(50), deg2rad(-20), deg2rad(-20), -pi/2, 0];
+qJointGuess{2} = [-1.3, 0, deg2rad(50), deg2rad(-20), deg2rad(-20), -pi/2, 0];
+qJointGuess{3} = [0, deg2rad(-25), deg2rad(50), deg2rad(-20), deg2rad(-20), -pi/2, 0];
+qJointGuess{4} = [-0.75, deg2rad(165), deg2rad(50), deg2rad(-20), deg2rad(-20), -pi/2, deg2rad(-90)];
+qJointGuess{5} = [-1.3, deg2rad(165), deg2rad(50), deg2rad(-20), deg2rad(-20), deg2rad(270), deg2rad(-90)];
+qJointGuess{6} = [0, deg2rad(165), deg2rad(50), deg2rad(-20), deg2rad(-20), -pi/2, deg2rad(-90)];
 
 qWashedGuess = cell(1, noDinnerSet);
 for k = 1:numel(qWashedGuess)
@@ -89,8 +89,8 @@ for k = 1:numel(qWashedGuess)
 end
 
 % Waypoints for Which Side of Table
-qRight = [0, pi, deg2rad(50), deg2rad(20), 0, -pi/2, 0];
-qLeft = [0, 0, deg2rad(50), deg2rad(20), 0, -pi/2, 0]; % Need to fix the Joints to match qGuess
+qRight = [-0.7, pi, deg2rad(50), deg2rad(-20), 0, -pi/2, 0];
+qLeft = [-0.7, 0, deg2rad(50), deg2rad(-20), 0, -pi/2, 0]; % Need to fix the Joints to match qGuess
 
 % Joint Angles at Dining ware
 plateJoint = moveRobot.solveIK(ur3, platePose, qJointGuess);
@@ -148,46 +148,48 @@ for k = 1:6
 
         % Move to just above Wash Basket
         qCurrent = ur3.model.getpos();
-        moveRobot.trapTraj(ur3, time, qCurrent, qWashedGuess{i});
+        moveRobot.trapTraj(ur3, time, qCurrent, qWashedGuess{i}, true);
 
         % Move to Washed Item
         qCurrent = ur3.model.getpos();
-        moveRobot.trapTraj(ur3, time, qCurrent, itemWashed{i});
+        moveRobot.trapTraj(ur3, time, qCurrent, itemWashed{i}, true);
 
         % Grab Washed Item (assuming finger grip do something)
 
         % Move to just above Wash Basket
         qCurrent = ur3.model.getpos();
-        moveRobot.trapTraj(ur3, time, qCurrent, qWashedGuess{i}, itemName, i);
+        moveRobot.trapTraj(ur3, time, qCurrent, qWashedGuess{i}, true, itemName, i);
 
         if  (i <= noDinnerSet && i >= 4) %{itemJoint{i}(1, 2) < 0 %}
+            % fprintf('i <= 6 && i >= 4 \n');
             % Reorientate Joints for Dining ware on right
             qCurrent = ur3.model.getpos();
-            moveRobot.trapTraj(ur3, time, qCurrent, qRight, itemName, i);
+            moveRobot.trapTraj(ur3, time, qCurrent, qRight, false, itemName, i);
 
-        elseif (i <= 3 && i >= 1) %{if itemJoint{i}(1, 2) > 0 %}   
+        elseif (i <= 3 && i >= 1) %{if itemJoint{i}(1, 2) > 0 %} 
+            % fprintf('i <= 3 && i >= 1 \n');
             % Reorientate Joints for Dining ware on right
             qCurrent = ur3.model.getpos();
-            moveRobot.trapTraj(ur3, time, qCurrent, qLeft, itemName, i);
+            moveRobot.trapTraj(ur3, time, qCurrent, qLeft, false, itemName, i);
         end
 
         % Move to Just Above Item
         qCurrent = ur3.model.getpos();
-        moveRobot.trapTraj(ur3, time, qCurrent, qJointGuess{i}, itemName, i);
+        moveRobot.trapTraj(ur3, time, qCurrent, qJointGuess{i}, false, itemName, i);
 
         % Move to Item
         qCurrent = ur3.model.getpos();
-        moveRobot.trapTraj(ur3, time, qCurrent, itemJoint{i}, itemName, i);
+        moveRobot.trapTraj(ur3, time, qCurrent, itemJoint{i}, false, itemName, i);
 
         % Let go of Item (assuming finger grip do something)
 
         % Move to Just Above Item
         qCurrent = ur3.model.getpos();
-        moveRobot.trapTraj(ur3, time, qCurrent, qJointGuess{i});
+        moveRobot.trapTraj(ur3, time, qCurrent, qJointGuess{i}, true);
 
         % Return to Default Pose
         qCurrent = ur3.model.getpos();
-        moveRobot.trapTraj(ur3, time, qCurrent, q0);
+        moveRobot.trapTraj(ur3, time, qCurrent, q0, true);
     end
 end
 
