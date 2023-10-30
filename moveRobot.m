@@ -3,7 +3,7 @@
 %     moveRobot.solveIK(robotName, itemPose, q0)
 %         robotName -> name of robot
 %         itemPose -> cell of item poses
-%         q0 -> inital joint guess
+%         q0 -> inital joint guess, can be left blank
 %     moveRobot.trapTraj(robotName, time, initQ, nextQ, isRMRC itemName, itemIndex)
 %         robotName -> name of robot
 %         time -> time in seconds for how long movement should take
@@ -96,7 +96,12 @@ classdef moveRobot
                 % Offset Z position so that the Tips of Gripper makes
                 % contact with itemName
                 endEffectorPose = itemPose{i} * trotx(deg2rad(180)) * transl(0, 0, -0.135);
-                desiredJoint{i} = robotName.model.ikcon(endEffectorPose, q0{i});
+                % Allow for the option for if no q0 is inputted.
+                if nargin >= 3 && ~isempty(q0)
+                    desiredJoint{i} = robotName.model.ikcon(endEffectorPose, q0{i});
+                else
+                    desiredJoint{i} = robotName.model.ikcon(endEffectorPose);
+                end
             end
         end
     end
