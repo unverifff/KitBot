@@ -18,55 +18,57 @@ noPan = 8;
 [plateWashed, bowlWashed, whiskyWashed, knifeWashed, ...
     forkWashed, spoonWashed] = kitchenPoses.getWashedPose(noDinnerSet);
 
-% panPose = kitchenPoses.getPanPose(noPan);
-% panWashedPose = kitchenPoses.getWashedPanPose(noPan);
+% If want to x times the number of poses:
+% Create a Cell -> ___Pose = cell(1:x)
+% ___Pose{1} = transl.......
+% ___Pose{2} = transl.......
+% ___Pose{x} = transl.......
+% Do the same for wash___Pose
+wokPose{1} = transl(1.15, -1.6, 1.03) * trotx(0) * troty(0) * trotz(0);
+saucePose{1} = transl(0.75, -1.65, 0.985) * trotx(0) * troty(0) * trotz(0);
+potPose{1} = transl(0.6, -0.4, 0.65) * trotx(0) * troty(0) * trotz(deg2rad(180));
+skilletPose{1} = transl(1.75, -2.23, 1.3) * trotx(deg2rad(90)) * troty(0) * trotz(0);
+castSaucePose{1} = transl(0.6, -2.205, 1.3) * trotx(deg2rad(90)) * troty(0) * trotz(0);
+castPanPose{1} = transl(-0.6, -2.205, 1.3) * trotx(deg2rad(90)) * troty(0) * trotz(0);
 
-%Insert dinnerware at Table
-% plate = insertModel('Plate', noDinnerSet, platePose);
-% bowl = insertModel('Bowl', noDinnerSet, bowlPose);
-% whisky = insertModel('Whisky', noDinnerSet, whiskyPose);
-% knife = insertModel('Knife', noDinnerSet, knifePose);
-% fork = insertModel('Fork', noDinnerSet, forkPose);
-% spoon = insertModel('Spoon', noDinnerSet, spoonPose);
+washWokPose{1} = transl(-1.6, -1.25, 0.7) * trotx(0) * troty(0) * trotz(deg2rad(-90));
+washSaucePose{1} = transl(-1.6, -1.25, 0.7) * trotx(0) * troty(0) * trotz(deg2rad(-90));
+washPotPose{1} = transl(-1.6, -1.25, 0.7) * trotx(0) * troty(0) * trotz(deg2rad(-90));
+washSkilletPose{1} = transl(-1.6, -1.25, 0.7) * trotx(0) * troty(0) * trotz(deg2rad(-90));
+washCastSaucePose{1} = transl(-1.6, -1.25, 0.7) * trotx(0) * troty(0) * trotz(deg2rad(-90));
+washCastPanPose{1} = transl(-1.6, -1.25, 0.7) * trotx(0) * troty(0) * trotz(deg2rad(-90));
 
-%Insert dinnerware in Wash Basket
-plate = insertModel('Plate', noDinnerSet, plateWashed);
-bowl = insertModel('Bowl', noDinnerSet, bowlWashed);
-whisky = insertModel('Whisky', noDinnerSet, whiskyWashed);
-knife = insertModel('Knife', noDinnerSet, knifeWashed);
-fork = insertModel('Fork', noDinnerSet, forkWashed);
-spoon = insertModel('Spoon', noDinnerSet, spoonWashed);
+%Insert dinnerware at Table (Comment out the other if using this)
+plate = insertModel('Plate', noDinnerSet, platePose);
+bowl = insertModel('Bowl', noDinnerSet, bowlPose);
+whisky = insertModel('Whisky', noDinnerSet, whiskyPose);
+knife = insertModel('Knife', noDinnerSet, knifePose);
+fork = insertModel('Fork', noDinnerSet, forkPose);
+spoon = insertModel('Spoon', noDinnerSet, spoonPose);
 
-% Insert pans in Dishwashing Machine
-% for i = 1:noPan
-%     switch i
-%         case 1
-%             name = 'Wok';
-%         case 2
-%             name = 'Saucepan';
-% 
-%         case 3
-%             name = 'Pot';
-% 
-%         case 4
-%             name = 'Cast Iron Saucepan';
-% 
-%         case 5
-%             name = 'Cast Iron Skillet';            
-% 
-%         case 6
-%             name = 'Cast Iron Pan';
-% 
-%         case 7
-%             name = 'Pot';
-% 
-%         case 8
-%             name = 'Saucepan';
-%     end
-% 
-%     insertModelAtPose(name, i, panPose);
-%     % insertModelAtPose(name, i, panWashedPose);
-% end
+%Insert dinnerware in Wash Basket (Comment out the other if using this)
+% plate = insertModel('Plate', noDinnerSet, plateWashed);
+% bowl = insertModel('Bowl', noDinnerSet, bowlWashed);
+% whisky = insertModel('Whisky', noDinnerSet, whiskyWashed);
+% knife = insertModel('Knife', noDinnerSet, knifeWashed);
+% fork = insertModel('Fork', noDinnerSet, forkWashed);
+% spoon = insertModel('Spoon', noDinnerSet, spoonWashed);
+
+% Insert pans (Comment out the other if using this)
+wok = insertModel('Wok', 1, wokPose);
+sauce = insertModel('Saucepan', 1, saucePose);
+pot = insertModel('Pot', 1, potPose);
+skillet = insertModel('Cast Iron Skillet', 1, skilletPose);
+castSauce = insertModel('Cast Iron Saucepan', 1, castSaucePose);
+castPan= insertModel('Cast Iron Pan', 1, castPanPose);
+
+% Insert pans in washing machine (Comment out the other if using this)
+% wok = insertModel('Wok', 1, washWokPose);
+% sauce = insertModel('Saucepan', 1, washSaucePose);
+% pot = insertModel('Pot', 1, washPotPose);
+% skillet = insertModel('Cast Iron Skillet', 1, washSkilletPose);
+% castSauce = insertModel('Cast Iron Saucepan', 1, washCastSaucePose);
+% castPan= insertModel('Cast Iron Pan', 1, washCastPanPose);
 
 %% LinearUR3
 baseTr = transl([-0.7 2.5 0.63]) * trotz(deg2rad(180)); % Linear UR3 built into Table
@@ -80,7 +82,7 @@ qJointGuess{1} = [-0.5, 0, deg2rad(50), deg2rad(-20), deg2rad(-20), -pi/2, 0];
 qJointGuess{2} = [-1.3, 0, deg2rad(50), deg2rad(-20), deg2rad(-20), -pi/2, 0];
 qJointGuess{3} = [0, deg2rad(-25), deg2rad(50), deg2rad(-20), deg2rad(-20), -pi/2, 0];
 qJointGuess{4} = [-0.75, deg2rad(165), deg2rad(50), deg2rad(-20), deg2rad(-20), -pi/2, deg2rad(-90)];
-qJointGuess{5} = [-1.3, deg2rad(165), deg2rad(50), deg2rad(-20), deg2rad(-20), deg2rad(270), deg2rad(-90)];
+qJointGuess{5} = [-1.3, deg2rad(165), deg2rad(50), deg2rad(-20), deg2rad(-20), deg2rad(-90), deg2rad(-90)];
 qJointGuess{6} = [0, deg2rad(165), deg2rad(50), deg2rad(-20), deg2rad(-20), -pi/2, deg2rad(-90)];
 
 qWashedGuess = cell(1, noDinnerSet);
@@ -142,7 +144,7 @@ for k = 1:6
             itemWashed = whiskyWashedJoint;       
     end
 
-    
+
     for i = noDinnerSet:-1:1
         time = 1;
 

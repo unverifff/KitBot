@@ -30,7 +30,7 @@ classdef Environment
         
             % Insert Kitchen Island
             file = "Kitchen Island.ply";
-            transform = transl(0.30, 0.08, 0.3) * trotx(0) * troty(0) * trotz(deg2rad(0));
+            transform = transl(0.30, -0.3, 0.3) * trotx(0) * troty(0) * trotz(deg2rad(0));
             self.insertObj(file, transform);
         
             % Insert Kitchen Benches

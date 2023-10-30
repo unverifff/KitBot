@@ -11,6 +11,7 @@
 
 classdef kitchenPoses 
     methods(Static)
+        % Poses of Dining Ware at Table
         function [platePose, bowlPose, whiskyPose, knifePose, forkPose, spoonPose] = getDiningPose(numberOfPose)
             % Initiate Pose Cells
             platePose = cell(1, numberOfPose);
@@ -118,6 +119,7 @@ classdef kitchenPoses
             end
         end
 
+        % Poses of Dining Ware at Basket
         function [plateWashedPose, bowlWashedPose, whiskyWashedPose, knifeWashedPose, forkWashedPose, spoonWashedPose] = getWashedPose(numberOfPose)
             % Initiate Pose Cells
             plateWashedPose = cell(1, numberOfPose);
@@ -204,10 +206,11 @@ classdef kitchenPoses
             end
         end
 
+        % Pan Poses at Kitchen
         function panPose = getPanPose(numberOfPose)
             % Initiate Pose Cells
             panPose = cell(1, numberOfPose);
-            
+
             % Add More Cases if numberOfPose > 8
             for i = 1:numberOfPose
                 switch i
@@ -218,7 +221,7 @@ classdef kitchenPoses
                         rx = deg2rad(0);
                         ry = deg2rad(0);
                         rz = deg2rad(0);
-        
+
                     case 2
                         x = 0.75;
                         y = -1.65;
@@ -226,7 +229,7 @@ classdef kitchenPoses
                         rx = deg2rad(0);
                         ry = deg2rad(0);
                         rz = deg2rad(0);
-        
+
                     case 3
                         x = 0.6;
                         y = -0.4;
@@ -234,7 +237,7 @@ classdef kitchenPoses
                         rx = deg2rad(0);
                         ry = deg2rad(0);
                         rz = deg2rad(180);
-        
+
                     case 4
                         x = 1.75;
                         y = -2.23;
@@ -242,7 +245,7 @@ classdef kitchenPoses
                         rx = deg2rad(90);
                         ry = deg2rad(0);
                         rz = deg2rad(0);
-        
+
                     case 5
                         x = 0.6;
                         y = -2.205;
@@ -250,7 +253,7 @@ classdef kitchenPoses
                         rx = deg2rad(90);
                         ry = deg2rad(0);
                         rz = deg2rad(0);
-        
+
                     case 6
                         x = -0.6;
                         y = -2.205;
@@ -258,7 +261,7 @@ classdef kitchenPoses
                         rx = deg2rad(90);
                         ry = deg2rad(0);
                         rz = deg2rad(0);
-        
+
                     case 7
                         x = 0.25;
                         y = -0.35;
@@ -266,7 +269,7 @@ classdef kitchenPoses
                         rx = deg2rad(0);
                         ry = deg2rad(0);
                         rz = deg2rad(90);
-        
+
                     case 8
                         x = -1.6;
                         y = -1.25;
@@ -280,10 +283,11 @@ classdef kitchenPoses
             end
         end
 
+        % Pan Poses at Dishwasher
         function washedPanPose = getWashedPanPose(numberOfPose)
             % Initiate Pose Cells
             washedPanPose = cell(1, numberOfPose);
-            
+
             % Add More Cases if numberOfPose > 8
             for i = 1:numberOfPose
                 switch i
@@ -294,7 +298,7 @@ classdef kitchenPoses
                         rx = deg2rad(0);
                         ry = deg2rad(0);
                         rz = deg2rad(-90);
-        
+
                     case 2
                         x = -1.6;
                         y = -1.25;
@@ -302,7 +306,7 @@ classdef kitchenPoses
                         rx = deg2rad(0);
                         ry = deg2rad(0);
                         rz = deg2rad(-90);
-        
+
                     case 3
                         x = -1.6;
                         y = -1.25;
@@ -310,7 +314,7 @@ classdef kitchenPoses
                         rx = deg2rad(0);
                         ry = deg2rad(0);
                         rz = deg2rad(-90);
-        
+
                     case 4
                         x = -1.6;
                         y = -1.25;
@@ -318,7 +322,7 @@ classdef kitchenPoses
                         rx = deg2rad(0);
                         ry = deg2rad(0);
                         rz = deg2rad(-90);
-        
+
                     case 5
                         x = -1.6;
                         y = -1.25;
@@ -326,7 +330,7 @@ classdef kitchenPoses
                         rx = deg2rad(0);
                         ry = deg2rad(0);
                         rz = deg2rad(-90);
-        
+
                     case 6
                         x = -1.6;
                         y = -1.25;
@@ -334,7 +338,7 @@ classdef kitchenPoses
                         rx = deg2rad(0);
                         ry = deg2rad(0);
                         rz = deg2rad(-90);
-        
+
                     case 7
                         x = -1.6;
                         y = -1.25;
@@ -342,7 +346,7 @@ classdef kitchenPoses
                         rx = deg2rad(0);
                         ry = deg2rad(0);
                         rz = deg2rad(-90);
-        
+
                     case 8
                         x = -1.6;
                         y = -1.25;
