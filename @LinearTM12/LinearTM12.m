@@ -19,9 +19,9 @@ classdef LinearTM12 < RobotBaseClass
 
 %% Create the robot model
         function CreateModel(self)   
-            % Create the UR5 model mounted on a linear rail
+            % Create the UR5 model mounted on a linear rail 0.2659
             link(1) = Link([pi     0       0       pi/2    1]); % PRISMATIC Link
-            link(2) = Link('d',0.2659,'a',0,'alpha',-pi/2,'qlim',deg2rad([-360 360]), 'offset',0);
+            link(2) = Link('d',0.195,'a',0,'alpha',-pi/2,'qlim',deg2rad([-360 360]), 'offset',0);
             link(3) = Link('d',0.18,'a',0.621,'alpha',0,'qlim', deg2rad([-360 360]), 'offset',0);
             link(4) = Link('d',-0.1297,'a',0.5725,'alpha',0,'qlim', deg2rad([-360 360]), 'offset', 0);
             link(5) = Link('d',0.106,'a',0,'alpha',-pi/2,'qlim',deg2rad([-360 360]),'offset', 0);
@@ -30,7 +30,7 @@ classdef LinearTM12 < RobotBaseClass
             
             
             % Incorporate joint limits
-            link(1).qlim = [0 1.24];
+            link(1).qlim = [-1.4 0];
             link(2).qlim = [-360 360]*pi/180;
             link(3).qlim = [-90 90]*pi/180;
             link(4).qlim = [-170 170]*pi/180;
