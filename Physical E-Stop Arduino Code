@@ -1,0 +1,31 @@
+//Arduino Code for Basic E-Stop Button w LED
+
+const int buttonPin = 7;
+const int ledPin = 8;
+int buttonState = 0;
+int lastButtonState = 0;
+bool ledState = false;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  pinMode(buttonPin, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  buttonState = digitalRead(buttonPin);
+
+  if (buttonState != lastButtonState) {
+    delay(50);  // Button Debounce
+    if (buttonState == HIGH) {
+      ledState = !ledState;  // Toggle LED
+      if (ledState) {
+        digitalWrite(ledPin, HIGH);
+        Serial.println("E_STOP");
+      } else {
+        digitalWrite(ledPin, LOW);
+      }
+    }
+  }
+  lastButtonState = buttonState;
+}
