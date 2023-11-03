@@ -1,0 +1,528 @@
+classdef GUIv3 < matlab.apps.AppBase
+
+    % Properties that correspond to app components
+    properties (Access = public)
+        UIFigure                 matlab.ui.Figure
+        RobotTeachPanel          matlab.ui.container.Panel
+        Switch                   matlab.ui.control.Switch
+        LinearUR3Panel           matlab.ui.container.Panel
+        EditField_12             matlab.ui.control.EditField
+        EditField_11             matlab.ui.control.EditField
+        q3Slider_2               matlab.ui.control.Slider
+        q3Slider_2Label          matlab.ui.control.Label
+        EditField_10             matlab.ui.control.EditField
+        EditField_9              matlab.ui.control.EditField
+        EditField_8              matlab.ui.control.EditField
+        EditField_7              matlab.ui.control.EditField
+        YSpinner_2               matlab.ui.control.Spinner
+        YSpinner_2Label          matlab.ui.control.Label
+        ZSpinner_2               matlab.ui.control.Spinner
+        ZSpinner_2Label          matlab.ui.control.Label
+        XSpinner_2               matlab.ui.control.Spinner
+        XSpinner_2Label          matlab.ui.control.Label
+        q5Slider_2               matlab.ui.control.Slider
+        q5Slider_2Label          matlab.ui.control.Label
+        q6Slider_2               matlab.ui.control.Slider
+        q6Slider_2Label          matlab.ui.control.Label
+        q2Slider_2               matlab.ui.control.Slider
+        q2Slider_2Label          matlab.ui.control.Label
+        q4Slider_2               matlab.ui.control.Slider
+        q4Slider_2Label          matlab.ui.control.Label
+        q1Slider_2               matlab.ui.control.Slider
+        q1Slider_2Label          matlab.ui.control.Label
+        LinearTM12Panel          matlab.ui.container.Panel
+        EditField_6              matlab.ui.control.EditField
+        EditField_5              matlab.ui.control.EditField
+        EditField_4              matlab.ui.control.EditField
+        EditField_3              matlab.ui.control.EditField
+        EditField_2              matlab.ui.control.EditField
+        EditField                matlab.ui.control.EditField
+        YSpinner                 matlab.ui.control.Spinner
+        YSpinnerLabel            matlab.ui.control.Label
+        ZSpinner                 matlab.ui.control.Spinner
+        ZSpinnerLabel            matlab.ui.control.Label
+        XSpinner                 matlab.ui.control.Spinner
+        XSpinnerLabel            matlab.ui.control.Label
+        q5Slider                 matlab.ui.control.Slider
+        q5SliderLabel            matlab.ui.control.Label
+        q3Slider                 matlab.ui.control.Slider
+        q3SliderLabel            matlab.ui.control.Label
+        q6Slider                 matlab.ui.control.Slider
+        q6SliderLabel            matlab.ui.control.Label
+        q2Slider                 matlab.ui.control.Slider
+        q2SliderLabel            matlab.ui.control.Label
+        q4Slider                 matlab.ui.control.Slider
+        q4SliderLabel            matlab.ui.control.Label
+        q1Slider                 matlab.ui.control.Slider
+        q1SliderLabel            matlab.ui.control.Label
+        ControlButtonsPanel      matlab.ui.container.Panel
+        StartSimulationButton    matlab.ui.control.Button
+        PauseButton              matlab.ui.control.Button
+        ResumeButton             matlab.ui.control.Button
+        EStopButton              matlab.ui.control.Button
+        ResetButton              matlab.ui.control.Button
+        LinearUR3SpeedKnob       matlab.ui.control.Knob
+        LinearUR3SpeedKnobLabel  matlab.ui.control.Label
+        TM12SpeedKnobLabel       matlab.ui.control.Label
+        TM12SpeedKnob            matlab.ui.control.Knob
+        ProgramRunningLamp       matlab.ui.control.Lamp
+        ProgramRunningLampLabel  matlab.ui.control.Label
+    end
+
+    
+       properties (Access = public)
+    paused = false; % Assuming you want the default value to be false
+    estopped = false; % New property to track E-stop state
+end
+
+
+
+    % Callbacks that handle component events
+    methods (Access = private)
+
+        % Button pushed function: StartSimulationButton
+        function StartSimulationButtonPushed(app, event)
+        app.ProgramRunningLamp.Color = 'green'; % Set lamp color to green
+           mainTest();  
+        end
+    end
+        end
+
+        % Button pushed function: PauseButton
+        function PauseButtonPushed(app, event)
+        if ~app.paused 
+        % Set paused flag
+        app.paused = true;
+
+        % Set lamp color to yellow to indicate the simulation is paused
+        app.ProgramRunningLamp.Color = 'yellow';
+
+        % ... (Any other logic required to pause your specific simulation) 
+        end
+
+        end
+
+        % Button pushed function: EStopButton
+        function EStopButtonPushed(app, event)
+        if ~app.estopped
+        % Halt the robot
+        app.ProgramRunningLamp.Color = 'red';
+        pause(1.0); % Example logic to pause execution. Adjust as per your needs.
+        % ... (Any other logic to halt the robot)
+        
+        app.estopped = true;
+    else
+        % Display confirmation dialog
+        selection = uiconfirm(app.GUI_v2, 'Are you sure you want to continue?', ...
+            'Resume Confirmation', ...
+            'Options', {'Yes', 'No'}, ...
+            'DefaultOption', 2, ...
+            'CancelOption', 2);
+        
+        switch selection
+            case 'Yes'
+                % Resume the robot
+                app.ProgramRunningLamp.Color = 'green';
+                app.estopped = false; % Corrected the typo here
+                % ... (Any other logic to resume the robot)
+                
+            case 'No'
+                % Keep the robot halted
+                % (No additional code needed here)
+        end
+        end
+
+        % Button pushed function: ResumeButton
+        function ResumeButtonPushed(app, event)
+    if app.paused
+        % Set the paused flag to false to resume the simulation
+        app.paused = false;
+   
+        % Set the lamp color to green to indicate the simulation is running
+        app.ProgramRunningLamp.Color = 'green';
+    end
+        end
+
+        % Button pushed function: ResetButton
+        function ResetButtonPushed(app, event)
+                        % Light up the lamp blue
+            app.ProgramRunningLamp.Color = 'blue';
+            
+            % Call the main function or method to start your program from the beginning
+            app.mainFunction();
+        end
+    end
+
+    % Component initialization
+    methods (Access = private)
+
+        % Create UIFigure and components
+        function createComponents(app)
+
+            % Create UIFigure and hide until all components are created
+            app.UIFigure = uifigure('Visible', 'off');
+            app.UIFigure.Position = [100 100 756 687];
+            app.UIFigure.Name = 'MATLAB App';
+
+            % Create ControlButtonsPanel
+            app.ControlButtonsPanel = uipanel(app.UIFigure);
+            app.ControlButtonsPanel.Title = 'Control Buttons';
+            app.ControlButtonsPanel.Position = [24 510 707 158];
+
+            % Create ProgramRunningLampLabel
+            app.ProgramRunningLampLabel = uilabel(app.ControlButtonsPanel);
+            app.ProgramRunningLampLabel.HorizontalAlignment = 'right';
+            app.ProgramRunningLampLabel.FontWeight = 'bold';
+            app.ProgramRunningLampLabel.Position = [21 28 105 22];
+            app.ProgramRunningLampLabel.Text = 'Program Running';
+
+            % Create ProgramRunningLamp
+            app.ProgramRunningLamp = uilamp(app.ControlButtonsPanel);
+            app.ProgramRunningLamp.Position = [141 31 16 16];
+            app.ProgramRunningLamp.Color = [0.902 0.902 0.902];
+
+            % Create TM12SpeedKnob
+            app.TM12SpeedKnob = uiknob(app.ControlButtonsPanel, 'continuous');
+            app.TM12SpeedKnob.Position = [481 65 47 47];
+
+            % Create TM12SpeedKnobLabel
+            app.TM12SpeedKnobLabel = uilabel(app.ControlButtonsPanel);
+            app.TM12SpeedKnobLabel.HorizontalAlignment = 'center';
+            app.TM12SpeedKnobLabel.FontWeight = 'bold';
+            app.TM12SpeedKnobLabel.Position = [466 9 76 22];
+            app.TM12SpeedKnobLabel.Text = 'TM12 Speed';
+
+            % Create LinearUR3SpeedKnobLabel
+            app.LinearUR3SpeedKnobLabel = uilabel(app.ControlButtonsPanel);
+            app.LinearUR3SpeedKnobLabel.HorizontalAlignment = 'center';
+            app.LinearUR3SpeedKnobLabel.FontWeight = 'bold';
+            app.LinearUR3SpeedKnobLabel.Position = [574 9 108 22];
+            app.LinearUR3SpeedKnobLabel.Text = 'Linear UR3 Speed';
+
+            % Create LinearUR3SpeedKnob
+            app.LinearUR3SpeedKnob = uiknob(app.ControlButtonsPanel, 'continuous');
+            app.LinearUR3SpeedKnob.Position = [605 65 45 45];
+
+            % Create ResetButton
+            app.ResetButton = uibutton(app.ControlButtonsPanel, 'push');
+            app.ResetButton.ButtonPushedFcn = createCallbackFcn(app, @ResetButtonPushed, true);
+            app.ResetButton.BackgroundColor = [0.8 0.8 0.8];
+            app.ResetButton.FontWeight = 'bold';
+            app.ResetButton.Position = [334 26 100 27];
+            app.ResetButton.Text = 'Reset';
+
+            % Create EStopButton
+            app.EStopButton = uibutton(app.ControlButtonsPanel, 'push');
+            app.EStopButton.ButtonPushedFcn = createCallbackFcn(app, @EStopButtonPushed, true);
+            app.EStopButton.BackgroundColor = [1 0 0];
+            app.EStopButton.FontWeight = 'bold';
+            app.EStopButton.Position = [193 27 111 24];
+            app.EStopButton.Text = 'E-Stop';
+
+            % Create ResumeButton
+            app.ResumeButton = uibutton(app.ControlButtonsPanel, 'push');
+            app.ResumeButton.ButtonPushedFcn = createCallbackFcn(app, @ResumeButtonPushed, true);
+            app.ResumeButton.BackgroundColor = [0.5882 0.8431 0.949];
+            app.ResumeButton.FontWeight = 'bold';
+            app.ResumeButton.Position = [333 83 101 29];
+            app.ResumeButton.Text = 'Resume';
+
+            % Create PauseButton
+            app.PauseButton = uibutton(app.ControlButtonsPanel, 'push');
+            app.PauseButton.ButtonPushedFcn = createCallbackFcn(app, @PauseButtonPushed, true);
+            app.PauseButton.BackgroundColor = [1 1 0.0667];
+            app.PauseButton.FontWeight = 'bold';
+            app.PauseButton.Position = [194 83 111 29];
+            app.PauseButton.Text = 'Pause';
+
+            % Create StartSimulationButton
+            app.StartSimulationButton = uibutton(app.ControlButtonsPanel, 'push');
+            app.StartSimulationButton.ButtonPushedFcn = createCallbackFcn(app, @StartSimulationButtonPushed, true);
+            app.StartSimulationButton.BackgroundColor = [0.3922 0.8314 0.0745];
+            app.StartSimulationButton.FontWeight = 'bold';
+            app.StartSimulationButton.Position = [37 72 107 29];
+            app.StartSimulationButton.Text = 'Start Simulation';
+
+            % Create RobotTeachPanel
+            app.RobotTeachPanel = uipanel(app.UIFigure);
+            app.RobotTeachPanel.Title = 'Robot Teach';
+            app.RobotTeachPanel.Position = [24 33 708 458];
+
+            % Create LinearTM12Panel
+            app.LinearTM12Panel = uipanel(app.RobotTeachPanel);
+            app.LinearTM12Panel.Title = 'Linear TM12';
+            app.LinearTM12Panel.BackgroundColor = [0.9608 0.8275 0.8275];
+            app.LinearTM12Panel.FontWeight = 'bold';
+            app.LinearTM12Panel.Position = [362 14 331 393];
+
+            % Create q1SliderLabel
+            app.q1SliderLabel = uilabel(app.LinearTM12Panel);
+            app.q1SliderLabel.HorizontalAlignment = 'right';
+            app.q1SliderLabel.Position = [12 338 25 22];
+            app.q1SliderLabel.Text = 'q1';
+
+            % Create q1Slider
+            app.q1Slider = uislider(app.LinearTM12Panel);
+            app.q1Slider.Position = [58 347 150 3];
+
+            % Create q4SliderLabel
+            app.q4SliderLabel = uilabel(app.LinearTM12Panel);
+            app.q4SliderLabel.HorizontalAlignment = 'right';
+            app.q4SliderLabel.Position = [8 187 25 22];
+            app.q4SliderLabel.Text = 'q4';
+
+            % Create q4Slider
+            app.q4Slider = uislider(app.LinearTM12Panel);
+            app.q4Slider.Position = [54 196 150 3];
+
+            % Create q2SliderLabel
+            app.q2SliderLabel = uilabel(app.LinearTM12Panel);
+            app.q2SliderLabel.HorizontalAlignment = 'right';
+            app.q2SliderLabel.Position = [11 292 25 22];
+            app.q2SliderLabel.Text = 'q2';
+
+            % Create q2Slider
+            app.q2Slider = uislider(app.LinearTM12Panel);
+            app.q2Slider.Position = [57 301 150 3];
+
+            % Create q6SliderLabel
+            app.q6SliderLabel = uilabel(app.LinearTM12Panel);
+            app.q6SliderLabel.HorizontalAlignment = 'right';
+            app.q6SliderLabel.Position = [11 88 25 22];
+            app.q6SliderLabel.Text = 'q6';
+
+            % Create q6Slider
+            app.q6Slider = uislider(app.LinearTM12Panel);
+            app.q6Slider.Position = [57 97 150 3];
+
+            % Create q3SliderLabel
+            app.q3SliderLabel = uilabel(app.LinearTM12Panel);
+            app.q3SliderLabel.HorizontalAlignment = 'right';
+            app.q3SliderLabel.Position = [12 240 25 22];
+            app.q3SliderLabel.Text = 'q3';
+
+            % Create q3Slider
+            app.q3Slider = uislider(app.LinearTM12Panel);
+            app.q3Slider.Position = [58 249 150 3];
+
+            % Create q5SliderLabel
+            app.q5SliderLabel = uilabel(app.LinearTM12Panel);
+            app.q5SliderLabel.HorizontalAlignment = 'right';
+            app.q5SliderLabel.Position = [9 140 25 22];
+            app.q5SliderLabel.Text = 'q5';
+
+            % Create q5Slider
+            app.q5Slider = uislider(app.LinearTM12Panel);
+            app.q5Slider.Position = [55 149 150 3];
+
+            % Create XSpinnerLabel
+            app.XSpinnerLabel = uilabel(app.LinearTM12Panel);
+            app.XSpinnerLabel.HorizontalAlignment = 'right';
+            app.XSpinnerLabel.Position = [24 16 25 22];
+            app.XSpinnerLabel.Text = 'X';
+
+            % Create XSpinner
+            app.XSpinner = uispinner(app.LinearTM12Panel);
+            app.XSpinner.Position = [64 16 45 22];
+
+            % Create ZSpinnerLabel
+            app.ZSpinnerLabel = uilabel(app.LinearTM12Panel);
+            app.ZSpinnerLabel.HorizontalAlignment = 'right';
+            app.ZSpinnerLabel.Position = [226 16 25 22];
+            app.ZSpinnerLabel.Text = 'Z';
+
+            % Create ZSpinner
+            app.ZSpinner = uispinner(app.LinearTM12Panel);
+            app.ZSpinner.Position = [266 16 45 22];
+
+            % Create YSpinnerLabel
+            app.YSpinnerLabel = uilabel(app.LinearTM12Panel);
+            app.YSpinnerLabel.HorizontalAlignment = 'right';
+            app.YSpinnerLabel.Position = [123 16 25 22];
+            app.YSpinnerLabel.Text = 'Y';
+
+            % Create YSpinner
+            app.YSpinner = uispinner(app.LinearTM12Panel);
+            app.YSpinner.Position = [163 16 45 22];
+
+            % Create EditField
+            app.EditField = uieditfield(app.LinearTM12Panel, 'text');
+            app.EditField.Position = [237 88 74 22];
+
+            % Create EditField_2
+            app.EditField_2 = uieditfield(app.LinearTM12Panel, 'text');
+            app.EditField_2.Position = [237 140 74 22];
+
+            % Create EditField_3
+            app.EditField_3 = uieditfield(app.LinearTM12Panel, 'text');
+            app.EditField_3.Position = [237 187 74 22];
+
+            % Create EditField_4
+            app.EditField_4 = uieditfield(app.LinearTM12Panel, 'text');
+            app.EditField_4.Position = [237 239 74 22];
+
+            % Create EditField_5
+            app.EditField_5 = uieditfield(app.LinearTM12Panel, 'text');
+            app.EditField_5.Position = [237 291 74 22];
+
+            % Create EditField_6
+            app.EditField_6 = uieditfield(app.LinearTM12Panel, 'text');
+            app.EditField_6.Position = [237 337 74 22];
+
+            % Create LinearUR3Panel
+            app.LinearUR3Panel = uipanel(app.RobotTeachPanel);
+            app.LinearUR3Panel.Title = 'Linear UR3';
+            app.LinearUR3Panel.BackgroundColor = [0.8275 0.9608 0.9608];
+            app.LinearUR3Panel.FontWeight = 'bold';
+            app.LinearUR3Panel.Position = [15 13 331 393];
+
+            % Create q1Slider_2Label
+            app.q1Slider_2Label = uilabel(app.LinearUR3Panel);
+            app.q1Slider_2Label.HorizontalAlignment = 'right';
+            app.q1Slider_2Label.Position = [12 338 25 22];
+            app.q1Slider_2Label.Text = 'q1';
+
+            % Create q1Slider_2
+            app.q1Slider_2 = uislider(app.LinearUR3Panel);
+            app.q1Slider_2.Position = [58 347 150 3];
+
+            % Create q4Slider_2Label
+            app.q4Slider_2Label = uilabel(app.LinearUR3Panel);
+            app.q4Slider_2Label.HorizontalAlignment = 'right';
+            app.q4Slider_2Label.Position = [8 187 25 22];
+            app.q4Slider_2Label.Text = 'q4';
+
+            % Create q4Slider_2
+            app.q4Slider_2 = uislider(app.LinearUR3Panel);
+            app.q4Slider_2.Position = [54 196 150 3];
+
+            % Create q2Slider_2Label
+            app.q2Slider_2Label = uilabel(app.LinearUR3Panel);
+            app.q2Slider_2Label.HorizontalAlignment = 'right';
+            app.q2Slider_2Label.Position = [11 292 25 22];
+            app.q2Slider_2Label.Text = 'q2';
+
+            % Create q2Slider_2
+            app.q2Slider_2 = uislider(app.LinearUR3Panel);
+            app.q2Slider_2.Position = [57 301 150 3];
+
+            % Create q6Slider_2Label
+            app.q6Slider_2Label = uilabel(app.LinearUR3Panel);
+            app.q6Slider_2Label.HorizontalAlignment = 'right';
+            app.q6Slider_2Label.Position = [11 88 25 22];
+            app.q6Slider_2Label.Text = 'q6';
+
+            % Create q6Slider_2
+            app.q6Slider_2 = uislider(app.LinearUR3Panel);
+            app.q6Slider_2.Position = [57 97 150 3];
+
+            % Create q5Slider_2Label
+            app.q5Slider_2Label = uilabel(app.LinearUR3Panel);
+            app.q5Slider_2Label.HorizontalAlignment = 'right';
+            app.q5Slider_2Label.Position = [9 140 25 22];
+            app.q5Slider_2Label.Text = 'q5';
+
+            % Create q5Slider_2
+            app.q5Slider_2 = uislider(app.LinearUR3Panel);
+            app.q5Slider_2.Position = [55 149 150 3];
+
+            % Create XSpinner_2Label
+            app.XSpinner_2Label = uilabel(app.LinearUR3Panel);
+            app.XSpinner_2Label.HorizontalAlignment = 'right';
+            app.XSpinner_2Label.Position = [24 16 25 22];
+            app.XSpinner_2Label.Text = 'X';
+
+            % Create XSpinner_2
+            app.XSpinner_2 = uispinner(app.LinearUR3Panel);
+            app.XSpinner_2.Position = [64 16 45 22];
+
+            % Create ZSpinner_2Label
+            app.ZSpinner_2Label = uilabel(app.LinearUR3Panel);
+            app.ZSpinner_2Label.HorizontalAlignment = 'right';
+            app.ZSpinner_2Label.Position = [226 16 25 22];
+            app.ZSpinner_2Label.Text = 'Z';
+
+            % Create ZSpinner_2
+            app.ZSpinner_2 = uispinner(app.LinearUR3Panel);
+            app.ZSpinner_2.Position = [266 16 45 22];
+
+            % Create YSpinner_2Label
+            app.YSpinner_2Label = uilabel(app.LinearUR3Panel);
+            app.YSpinner_2Label.HorizontalAlignment = 'right';
+            app.YSpinner_2Label.Position = [123 16 25 22];
+            app.YSpinner_2Label.Text = 'Y';
+
+            % Create YSpinner_2
+            app.YSpinner_2 = uispinner(app.LinearUR3Panel);
+            app.YSpinner_2.Position = [163 16 45 22];
+
+            % Create EditField_7
+            app.EditField_7 = uieditfield(app.LinearUR3Panel, 'text');
+            app.EditField_7.Position = [237 88 74 22];
+
+            % Create EditField_8
+            app.EditField_8 = uieditfield(app.LinearUR3Panel, 'text');
+            app.EditField_8.Position = [237 140 74 22];
+
+            % Create EditField_9
+            app.EditField_9 = uieditfield(app.LinearUR3Panel, 'text');
+            app.EditField_9.Position = [237 187 74 22];
+
+            % Create EditField_10
+            app.EditField_10 = uieditfield(app.LinearUR3Panel, 'text');
+            app.EditField_10.Position = [237 239 74 22];
+
+            % Create q3Slider_2Label
+            app.q3Slider_2Label = uilabel(app.LinearUR3Panel);
+            app.q3Slider_2Label.HorizontalAlignment = 'right';
+            app.q3Slider_2Label.Position = [12 240 25 22];
+            app.q3Slider_2Label.Text = 'q3';
+
+            % Create q3Slider_2
+            app.q3Slider_2 = uislider(app.LinearUR3Panel);
+            app.q3Slider_2.Position = [58 249 150 3];
+
+            % Create EditField_11
+            app.EditField_11 = uieditfield(app.LinearUR3Panel, 'text');
+            app.EditField_11.Position = [237 291 74 22];
+
+            % Create EditField_12
+            app.EditField_12 = uieditfield(app.LinearUR3Panel, 'text');
+            app.EditField_12.Position = [237 337 74 22];
+
+            % Create Switch
+            app.Switch = uiswitch(app.RobotTeachPanel, 'slider');
+            app.Switch.Items = {'Joints', 'Cartesian'};
+            app.Switch.Position = [59 412 45 20];
+            app.Switch.Value = 'Joints';
+
+            % Show the figure after all components are created
+            app.UIFigure.Visible = 'on';
+        end
+    end
+
+    % App creation and deletion
+    methods (Access = public)
+
+        % Construct app
+        function app = GUIv3
+
+            % Create UIFigure and components
+            createComponents(app)
+
+            % Register the app with App Designer
+            registerApp(app, app.UIFigure)
+
+            if nargout == 0
+                clear app
+            end
+        end
+
+        % Code that executes before app deletion
+        function delete(app)
+
+            % Delete UIFigure when app is deleted
+            delete(app.UIFigure)
+        end
+    end
+end
