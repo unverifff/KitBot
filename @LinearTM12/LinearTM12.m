@@ -30,7 +30,7 @@ classdef LinearTM12 < RobotBaseClass
             
             
             % Incorporate joint limits
-            link(1).qlim = [-1.4 0];
+            link(1).qlim = [-1.9 0];
             link(2).qlim = [-360 360]*pi/180;
             link(3).qlim = [-90 90]*pi/180;
             link(4).qlim = [-170 170]*pi/180;

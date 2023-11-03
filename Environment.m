@@ -51,9 +51,17 @@ classdef Environment
             PlaceObject('Wall Railing.ply', [0.5, -2.25, 1.35]);
         
             % Insert Wall Hooks
-            PlaceObject('Wall hook.ply', [1.75, -2.25, 1.35]);
-            PlaceObject('Wall hook.ply', [2, -2.25, 1.35]);
-            PlaceObject('Wall hook.ply', [2.25, -2.25, 1.35]);
+            % PlaceObject('Wall hook.ply', [1, -2.25, 1.35]);
+            % PlaceObject('Wall hook.ply', [1.25, -2.25, 1.35]);
+            % PlaceObject('Wall hook.ply', [1.5, -2.25, 1.35]);
+
+            PlaceObject('Wall hook.ply', [-0.75, -2.25, 1.35]);
+            PlaceObject('Wall hook.ply', [-0.5, -2.25, 1.35]);
+            PlaceObject('Wall hook.ply', [-0.25, -2.25, 1.35]);
+
+            PlaceObject('Wall hook.ply', [0.25, -2.25, 1.35]);
+            PlaceObject('Wall hook.ply', [0.5, -2.25, 1.35]);
+            PlaceObject('Wall hook.ply', [0.75, -2.25, 1.35]);
         
             % Insert e-stop
             PlaceObject('Emergency stop.ply', [-2.05, 0, 1.2]);
